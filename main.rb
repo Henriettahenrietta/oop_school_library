@@ -1,30 +1,62 @@
+# load required classes
 require_relative 'student'
 require_relative 'teacher'
-require_relative 'person'
+require_relative 'classroom'
+require_relative 'book'
+require_relative 'rental'
 require_relative 'capitalize_decorator'
 require_relative 'trimmer_decorator'
 
-puts "---- Student and Teacher Test ----"
+# TEST CLASSROOM & STUDENT
+puts "--Classroom Test--"
 
-student = Student.new(16, "Math", "Henrietta", true)
-teacher = Teacher.new(40, "Mathematics", "Mrs. Benadette")
+# create classroom
+classroom = Classroom.new("Math")
 
-puts "Student name: #{student.name}"
-puts "Student can use services?: #{student.can_use_services?}"
-puts student.play_hooky
+# create student
+student = Student.new(16, nil, "Isange", true)
 
-puts "Teacher name: #{teacher.name}"
-puts "Teacher specialization: #{teacher.specialization}"
-puts "Teacher can use services?: #{teacher.can_use_services?}"
+# add student to classroom
+classroom.add_student(student)
 
-puts "\nDecorator Test"
+# display classroom info
+puts "Classroom label: #{classroom.label}"
 
+puts "Students in classroom:"
+classroom.students.each do |s|
+  puts s.name
+end
+
+
+# TEST BOOK & RENTAL
+puts "\n--Book Rental Test-- "
+
+# create book
+book = Book.new("Ruby Basics", "Mac Joel")
+
+# create teacher
+teacher = Teacher.new(35, "Math", "Mrs Benadette")
+
+# create rental
+rental = Rental.new("2026-03-12", teacher, book)
+
+# display rental info
+puts "Book: #{book.title}"
+puts "Rented by: #{teacher.name}"
+puts "Date: #{rental.date}"
+
+
+# TEST DECORATOR PATTERN
+puts "\n-- Decorator Test-- "
+
+# create person
 person = Person.new(22, "Henrietta Isange")
 
-puts person.correct_name
+# capitalize the name
+capitalized = CapitalizeDecorator.new(person)
 
-capitalized_person = CapitalizeDecorator.new(person)
-puts capitalized_person.correct_name
+# trim the name to 10 characters
+trimmed = TrimmerDecorator.new(capitalized)
 
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-puts capitalized_trimmed_person.correct_name
+# display result
+puts trimmed.correct_name
