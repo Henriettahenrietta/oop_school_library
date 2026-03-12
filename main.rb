@@ -1,62 +1,47 @@
-# load required classes
-require_relative 'student'
-require_relative 'teacher'
-require_relative 'classroom'
-require_relative 'book'
-require_relative 'rental'
-require_relative 'capitalize_decorator'
-require_relative 'trimmer_decorator'
+require_relative 'app'
 
-# TEST CLASSROOM & STUDENT
-puts "--Classroom Test--"
-
-# create classroom
-classroom = Classroom.new("Math")
-
-# create student
-student = Student.new(16, nil, "Isange", true)
-
-# add student to classroom
-classroom.add_student(student)
-
-# display classroom info
-puts "Classroom label: #{classroom.label}"
-
-puts "Students in classroom:"
-classroom.students.each do |s|
-  puts s.name
+# display the menu options
+def display_menu
+  puts
+  puts "Please choose an option by entering a number:"
+  puts "1 - List all books"
+  puts "2 - List all people"
+  puts "3 - Create a person"
+  puts "4 - Create a book"
+  puts "5 - Create a rental"
+  puts "6 - List all rentals for a given person id"
+  puts "7 - Exit"
 end
 
+# main method (entry point of the program)
+def main
+  app = App.new
+  option = 0
 
-# TEST BOOK & RENTAL
-puts "\n--Book Rental Test-- "
+  while option != 7
+    display_menu
+    option = gets.chomp.to_i
 
-# create book
-book = Book.new("Ruby Basics", "Mac Joel")
+    case option
+    when 1
+      app.list_books
+    when 2
+      app.list_people
+    when 3
+      app.create_person
+    when 4
+      app.create_book
+    when 5
+      app.create_rental
+    when 6
+      app.list_rentals
+    when 7
+      puts "Thank you for using this app!"
+    else
+      puts "Invalid option"
+    end
+  end
+end
 
-# create teacher
-teacher = Teacher.new(35, "Math", "Mrs Benadette")
-
-# create rental
-rental = Rental.new("2026-03-12", teacher, book)
-
-# display rental info
-puts "Book: #{book.title}"
-puts "Rented by: #{teacher.name}"
-puts "Date: #{rental.date}"
-
-
-# TEST DECORATOR PATTERN
-puts "\n-- Decorator Test-- "
-
-# create person
-person = Person.new(22, "Henrietta Isange")
-
-# capitalize the name
-capitalized = CapitalizeDecorator.new(person)
-
-# trim the name to 10 characters
-trimmed = TrimmerDecorator.new(capitalized)
-
-# display result
-puts trimmed.correct_name
+# start the program
+main
