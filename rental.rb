@@ -1,20 +1,14 @@
-# Rental class
-# This connects a person and a book
-
 class Rental
-  # allow date, person and book to be accessed
-  attr_accessor :date, :person, :book
+  attr_reader :person, :book
+  attr_accessor :date
 
-  # constructor
   def initialize(date, person, book)
-    @date = date       # rental date
-    @person = person   # person renting the book
-    @book = book       # book being rented
+    @date = date
 
-    # add this rental to the person's rentals list
+    @person = person
     person.rentals << self
 
-    # add this rental to the book's rentals list
+    @book = book
     book.rentals << self
   end
 end

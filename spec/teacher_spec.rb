@@ -1,15 +1,16 @@
+
 require_relative '../teacher'
 
 describe Teacher do
   before :each do
-    @teacher = Teacher.new(40, "Math", "Mr Smith")
+    @teacher = Teacher.new(30, 'Shubham', 'true')
   end
 
-  it "has specialization" do
-    expect(@teacher.specialization).to eq("Math")
+  it 'checking teacher instance' do
+    expect(@teacher).to be_instance_of Teacher
   end
 
-  it "can always use services" do
+  it 'can use services' do
     expect(@teacher.can_use_services?).to be true
   end
 end

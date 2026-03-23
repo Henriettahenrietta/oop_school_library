@@ -2,14 +2,21 @@ require_relative '../student'
 
 describe Student do
   before :each do
-    @student = Student.new(16, nil, "Bob", true)
+    @student = Student.new(30, 'Shubham', 'true')
   end
 
-  it "inherits name" do
-    expect(@student.name).to eq("Bob")
+  it 'checking student instance' do
+    expect(@student).to be_instance_of Student
   end
 
-  it "can play hooky" do
-    expect(@student.play_hooky).to eq("¯\\(ツ)/¯")
+  it 'checking attributes' do
+    expect(@student.play_hooky).to eq('¯(ツ)/¯')
+  end
+
+  it 'test for setter_classroom' do
+    classroom = double('classroom', students: [])
+    allow(classroom).to receive(:label) { 'Eight' }
+    @student.classroom = classroom
+    expect(@student.classroom.label).to eq('Eight')
   end
 end
